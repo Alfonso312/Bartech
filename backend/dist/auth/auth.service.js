@@ -56,14 +56,21 @@ let AuthService = class AuthService {
     }
     async validateUser(email, pass) {
         const user = await this.usersService.findByEmail(email);
-        if (user && (await bcrypt.compare(pass, user.password))) {
-            const { password, ...result } = user['dataValues'];
-            return result;
+        if (!user) {
+            throw new common_1.UnauthorizedException('User not found');
         }
-        return null;
+        const isMatch = await bcrypt.compare(pass, user.password);
+        if (!isMatch) {
+            throw new common_1.UnauthorizedException('Invalid credentials');
+        }
+        return user;
     }
-    async login(user) {
-        const payload = { username: user.username, sub: user.id, role: user.role };
+    async login(email, password) {
+        const user = await this.validateUser(email, password);
+        const payload = {
+            sub: user.id,
+            email: user.email,
+        };
         return {
             access_token: this.jwtService.sign(payload),
         };

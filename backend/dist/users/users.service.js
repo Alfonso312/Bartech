@@ -21,14 +21,14 @@ let UsersService = class UsersService {
     constructor(userModel) {
         this.userModel = userModel;
     }
-    create(data) {
-        return this.userModel.create(data);
+    async findAll() {
+        return this.userModel.findAll();
     }
-    findByEmail(email) {
+    async findByEmail(email) {
         return this.userModel.findOne({ where: { email } });
     }
-    findAll() {
-        return this.userModel.findAll();
+    async create(userData) {
+        return this.userModel.create(userData);
     }
 };
 exports.UsersService = UsersService;

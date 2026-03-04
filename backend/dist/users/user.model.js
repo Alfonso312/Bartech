@@ -12,23 +12,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
 let User = class User extends sequelize_typescript_1.Model {
-    username;
-    email;
-    password;
-    role;
 };
 exports.User = User;
 __decorate([
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.STRING,
-        allowNull: false,
     }),
     __metadata("design:type", String)
 ], User.prototype, "username", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.STRING,
-        allowNull: false,
         unique: true,
     }),
     __metadata("design:type", String)
@@ -36,7 +30,6 @@ __decorate([
 __decorate([
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.STRING,
-        allowNull: false,
     }),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
@@ -48,6 +41,8 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "role", void 0);
 exports.User = User = __decorate([
-    sequelize_typescript_1.Table
+    (0, sequelize_typescript_1.Table)({
+        tableName: 'Users',
+    })
 ], User);
 //# sourceMappingURL=user.model.js.map

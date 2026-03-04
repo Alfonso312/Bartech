@@ -1,29 +1,34 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import {
+    Table,
+    Column,
+    Model,
+    DataType,
+} from 'sequelize-typescript';
 
-@Table
+@Table({
+    tableName: 'Users',
+})
 export class User extends Model {
-    @Column({
-        type: DataType.STRING,
-        allowNull: false,
-    })
-    username: string;
 
     @Column({
         type: DataType.STRING,
-        allowNull: false,
+    })
+    declare username: string;
+
+    @Column({
+        type: DataType.STRING,
         unique: true,
     })
-    email: string;
+    declare email: string;
 
     @Column({
         type: DataType.STRING,
-        allowNull: false,
     })
-    password: string;
+    declare password: string;
 
     @Column({
         type: DataType.STRING,
-        defaultValue: 'user', // rol por defecto
+        defaultValue: 'user',
     })
-    role: string;
+    declare role: string;
 }
