@@ -10,6 +10,7 @@ exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const sequelize_1 = require("@nestjs/sequelize");
 const bullmq_1 = require("@nestjs/bullmq");
+const nestjs_prometheus_1 = require("@willsoto/nestjs-prometheus");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const product_model_1 = require("./products/product.model");
@@ -24,15 +25,16 @@ exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
+            nestjs_prometheus_1.PrometheusModule.register(),
             bullmq_1.BullModule.forRoot({
                 connection: {
-                    host: 'localhost',
+                    host: process.env.REDIS_HOST || 'localhost',
                     port: 6379,
                 },
             }),
             sequelize_1.SequelizeModule.forRoot({
                 dialect: 'postgres',
-                host: 'localhost',
+                host: process.env.DB_HOST || 'localhost',
                 port: 5432,
                 username: 'postgres',
                 password: 'kaly123',

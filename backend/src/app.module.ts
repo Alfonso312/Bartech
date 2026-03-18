@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { BullModule } from '@nestjs/bullmq';
+import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -14,15 +15,16 @@ import { ExcelModule } from './excel.module';
 
 @Module({
   imports: [
+    PrometheusModule.register(),
     BullModule.forRoot({
       connection: {
-        host: 'localhost',
+        host: process.env.REDIS_HOST || 'localhost',
         port: 6379,
       },
     }),
     SequelizeModule.forRoot({
       dialect: 'postgres',
-      host: 'localhost',
+      host: process.env.DB_HOST || 'localhost',
       port: 5432,
       username: 'postgres',
       password: 'kaly123',
